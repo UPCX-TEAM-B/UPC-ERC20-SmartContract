@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-ledger");
 
 const { deployContract } = require("./scripts/deploy.js");
 
@@ -33,13 +34,17 @@ module.exports = {
   solidity: "0.8.19",
   networks: {
     testnet: {
-      url: "https://rpc-mumbai.maticvigil.com/",
-      chainId: 80001,
-      gasPrice: 20000000000,
-      accounts:
+      url: `https://arbitrum-sepolia.infura.io/v3/${process.env.INFURA_KEY}`,
+      chainId: 421614,
+      /*accounts:
         process.env.DEPLOY_PRIVATEKEY !== undefined
           ? [process.env.DEPLOY_PRIVATEKEY.replace("0x", "")]
-          : [],
+          : [],*/
+      ledgerAccounts: ["0xfAD1adFE4B8BA79689ACB092e964b07bCaC08115"],
+      urls: {
+        apiURL: "https://api-sepolia.arbiscan.io/api",
+        browserURL: "https://sepolia.arbiscan.io",
+      },
     },
     mainnet: {
       url: "https://mainnet.infura.io/v3/43b0a08c7fa941a893f8f4351220272d",
@@ -53,5 +58,15 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.POLYGONSCAN_API_KEY,
+    customChains: [
+      {
+        url: `https://arbitrum-sepolia.infura.io/v3/${process.env.INFURA_KEY}`,
+        chainId: 421614,
+        urls: {
+          apiURL: "https://api-sepolia.arbiscan.io/api",
+          browserURL: "https://sepolia.arbiscan.io",
+        },
+      },
+    ],
   },
 };

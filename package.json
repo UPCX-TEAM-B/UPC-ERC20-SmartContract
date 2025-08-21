@@ -23,6 +23,7 @@
     "typechain": "^8.1.0"
   },
   "dependencies": {
+    "@nomicfoundation/hardhat-ledger": "^1.2.0",
     "@openzeppelin/contracts": "^4.9.3"
   }
 }
